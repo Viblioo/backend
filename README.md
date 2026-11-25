@@ -40,15 +40,6 @@ The backend is designed to provide a scalable, maintainable and secure foundatio
 
 Start the local services from the repository root with the ignored environment file:
 
-```sh
-docker compose --env-file backend/.env up -d
-```
-
-Spring Boot also loads `backend/.env`; datasource, Redis, and Neo4j settings are supplied there.
-Keep this file local and do not commit it.
-
----
-
 <p align="center">
   Built with ❤️ by the Viblioo team.
 </p>
