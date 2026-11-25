@@ -144,6 +144,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -177,6 +178,29 @@
 								</path>
 							</annotationProcessorPaths>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>2.44.0</version>
+				<configuration>
+					<java>
+						<eclipse>
+							<file>${project.basedir}/config/style.xml</file>
+						</eclipse>
+						<removeUnusedImports/>
+						<importOrder/>
+						<trimTrailingWhitespace/>
+						<endWithNewline/>
+					</java>
+				</configuration>
+				<executions>
+					<execution>
+						<goals><goal>check</goal></goals>
+						<phase>verify</phase>
 					</execution>
 				</executions>
 			</plugin>
