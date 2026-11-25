@@ -38,7 +38,14 @@ The backend is designed to provide a scalable, maintainable and secure foundatio
 
 > 🚧 Viblioo is currently under active development.
 
-More documentation, setup instructions and technical details will be added as the project evolves.
+Start the local services from the repository root with the ignored environment file:
+
+```sh
+docker compose --env-file backend/.env up -d
+```
+
+Spring Boot also loads `backend/.env`; datasource, Redis, and Neo4j settings are supplied there.
+Keep this file local and do not commit it.
 
 ---
 
