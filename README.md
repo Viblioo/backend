@@ -38,8 +38,6 @@ The backend is designed to provide a scalable, maintainable and secure foundatio
 
 > 🚧 Viblioo is currently under active development.
 
-Start the local services from the repository root with the ignored environment file:
-
 <p align="center">
   Built with ❤️ by the Viblioo team.
 </p>
