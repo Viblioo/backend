@@ -1,0 +1,63 @@
+package com.revibe.backend.infrastructure.adapters.input.rest;
+
+import com.revibe.backend.domain.exception.InvalidUserDataException;
+import com.revibe.backend.domain.exception.UserAlreadyExistsException;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.jspecify.annotations.NonNull;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+/**
+ * Convierte excepciones en respuestas RFC 9457 (ProblemDetail, application/problem+json). Heredar de
+ * ResponseEntityExceptionHandler hace que los errores estándar de Spring (JSON mal formado, método no permitido...)
+ * también salgan como ProblemDetail.
+ */
+@RestControllerAdvice
+public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ProblemDetail handleUserAlreadyExists(UserAlreadyExistsException ex) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.getMessage());
+        pd.setTitle("Usuario ya existente");
+        pd.setProperty("field", ex.getField().name().toLowerCase(java.util.Locale.ROOT));
+        return pd;
+    }
+
+    @ExceptionHandler(InvalidUserDataException.class)
+    public ProblemDetail handleInvalidUserData(InvalidUserDataException ex) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Datos de registro no válidos");
+        pd.setTitle("Validación fallida");
+        pd.setProperty("errors", Map.of(ex.getField(), ex.getMessage()));
+        return pd;
+    }
+
+    /** Errores de @Valid: devolvemos un mapa campo -> mensaje para que la app los pinte. */
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+            @NonNull HttpHeaders headers,
+            @NonNull HttpStatusCode status,
+            @NonNull WebRequest request) {
+        Map<String, String> errors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .collect(Collectors.toMap(
+                        FieldError::getField,
+                        fe -> fe.getDefaultMessage() == null ? "Valor no válido" : fe.getDefaultMessage(),
+                        (first, second) -> first));
+
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Datos de registro no válidos");
+        pd.setTitle("Validación fallida");
+        pd.setProperty("errors", errors);
+        return ResponseEntity.badRequest().body(pd);
+    }
+}
