@@ -1,0 +1,46 @@
+name: revibe
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: revibe
+      POSTGRES_USER: revibe
+      POSTGRES_PASSWORD: 1234
+    ports: ["5432:5432"]
+    volumes: [pg_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U revibe"]
+      interval: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "1234"]
+    ports: ["6379:6379"]
+    volumes: [redis_data:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a $$REDIS_PASSWORD ping | grep PONG"]
+      interval: 5s
+      retries: 10
+    environment:
+      REDIS_PASSWORD: 1234
+
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      NEO4J_AUTH: neo4j/vibloo1234
+      NEO4J_PLUGINS: '["apoc"]'
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes: [neo4j_data:/data]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:7474/ || exit 1"]
+      interval: 10s
+      retries: 10
+      
+volumes:
+  pg_data:
+  redis_data:
+  neo4j_data:
