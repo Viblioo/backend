@@ -1,7 +1,7 @@
-package com.revibe.backend.infrastructure.adapters.output.persistence.mapper;
+package com.revibe.backend.infrastructure.adapters.output.persistence.postgres.mapper;
 
 import com.revibe.backend.domain.model.User;
-import com.revibe.backend.infrastructure.adapters.output.persistence.entity.UserEntity;
+import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.entity.UserEntity;
 import org.springframework.stereotype.Component;
 
 /**

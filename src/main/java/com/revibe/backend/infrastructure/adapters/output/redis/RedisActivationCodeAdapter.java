@@ -1,4 +1,4 @@
-package com.revibe.backend.infrastructure.adapters.output.security;
+package com.revibe.backend.infrastructure.adapters.output.redis;
 
 import com.revibe.backend.application.ports.output.ActivationCodePort;
 import java.nio.charset.StandardCharsets;

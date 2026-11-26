@@ -1,4 +1,4 @@
-package com.revibe.backend.infrastructure.adapters.input.config;
+package com.revibe.backend.infrastructure.config;
 
 public final class SecurityHeaders {
 

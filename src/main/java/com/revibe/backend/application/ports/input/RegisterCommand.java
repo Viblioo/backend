@@ -1,13 +1,16 @@
-package com.revibe.backend.application.usecases;
+package com.revibe.backend.application.ports.input;
 
 import java.time.LocalDate;
 
 /**
  * Datos de entrada del caso de uso de registro. No sabe nada de HTTP: el controlador lo construye a partir de
  * RegisterRequest.
+ *
+ * @param clientIp
+ *            IP de quien se registra, para limitar registros masivos
  */
 public record RegisterCommand(String username, String email, String rawPassword, String firstName, String lastName,
-        LocalDate birthDate) {
+        LocalDate birthDate, String clientIp) {
 
     // Evita que la contraseña acabe en los logs si alguien hace log.info(command)
     @Override

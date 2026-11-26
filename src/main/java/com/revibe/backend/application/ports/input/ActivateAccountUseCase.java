@@ -1,4 +1,4 @@
-package com.revibe.backend.application.usecases;
+package com.revibe.backend.application.ports.input;
 
 public interface ActivateAccountUseCase {
 

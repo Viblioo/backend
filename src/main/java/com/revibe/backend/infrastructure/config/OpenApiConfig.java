@@ -1,4 +1,4 @@
-package com.revibe.backend.infrastructure.adapters.input.config;
+package com.revibe.backend.infrastructure.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
@@ -21,7 +21,8 @@ public class OpenApiConfig {
     public static final String BEARER = "bearerAuth";
 
     @Bean
-    public OpenAPI revibeOpenApi(@Value("${spring.application.name}") String appName) {
+    public OpenAPI revibeOpenApi(@Value("${spring.application.name}")
+    String appName) {
         return new OpenAPI()
                 .info(new Info()
                         .title("Revibe API")

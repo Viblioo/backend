@@ -1,13 +1,15 @@
-package com.revibe.backend.infrastructure.adapters.output.persistence;
+package com.revibe.backend.infrastructure.adapters.output.persistence.postgres;
 
 import com.revibe.backend.application.ports.output.UserRepositoryPort;
 import com.revibe.backend.domain.exception.UserAlreadyExistsException;
 import com.revibe.backend.domain.model.User;
 import com.revibe.backend.domain.model.UserStatus;
-import com.revibe.backend.infrastructure.adapters.output.persistence.mapper.UserPersistenceMapper;
-import com.revibe.backend.infrastructure.adapters.output.persistence.repository.UserJpaRepository;
+import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.mapper.UserPersistenceMapper;
+import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.repository.UserJpaRepository;
 import java.time.Instant;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
@@ -36,6 +38,26 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
     }
 
     @Override
+    public Optional<User> findById(UUID id) {
+        return jpaRepository.findById(id).map(mapper::toDomain);
+    }
+
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return jpaRepository.findByUsername(username).map(mapper::toDomain);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return jpaRepository.findByEmail(email).map(mapper::toDomain);
+    }
+
+    @Override
+    public void updatePasswordHash(UUID userId, String passwordHash) {
+        jpaRepository.updatePasswordHash(userId, passwordHash);
+    }
+
+    @Override
     public User save(User user) {
         try {
             return mapper.toDomain(jpaRepository.saveAndFlush(mapper.toEntity(user)));
@@ -47,6 +69,11 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
     @Override
     public boolean activate(UUID userId, Instant verifiedAt) {
         return jpaRepository.updateStatus(userId, UserStatus.PENDING, UserStatus.ACTIVE, verifiedAt) == 1;
+    }
+
+    @Override
+    public List<UUID> findActiveIdsAfter(UUID afterId, int limit) {
+        return jpaRepository.findActiveIdsAfter(afterId, limit);
     }
 
     //transofrm database exceptions (500) to business logic exceptions (409)

@@ -1,6 +1,6 @@
-package com.revibe.backend.infrastructure.adapters.input.config;
+package com.revibe.backend.infrastructure.adapters.input.rest.security;
 
-import com.revibe.backend.infrastructure.adapters.input.service.SessionService;
+import com.revibe.backend.application.ports.output.SessionPort;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,21 +13,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+/**
+ * Lee "Authorization: Bearer <token>", lo resuelve contra las sesiones (lo que además renueva su TTL) y deja el userId
+ * como principal. Sin token o con uno caducado no autentica: los endpoints protegidos responderán 401.
+ */
 @RequiredArgsConstructor
 public class OpaqueTokenAuthFilter extends OncePerRequestFilter {
 
-    private final SessionService sessions;
+    private final SessionPort sessions;
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
             throws ServletException, IOException {
-        String header = req.getHeader(HttpHeaders.AUTHORIZATION);
-        if (header != null && header.startsWith("Bearer ")) {
-            sessions.resolve(header.substring(7)).ifPresent(userId -> {
-                var auth = new UsernamePasswordAuthenticationToken(userId, null, List.of());
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            });
-        }
+        BearerToken.from(req.getHeader(HttpHeaders.AUTHORIZATION))
+                .flatMap(sessions::resolve)
+                .ifPresent(userId -> {
+                    var auth = new UsernamePasswordAuthenticationToken(userId, null, List.of());
+                    SecurityContextHolder.getContext().setAuthentication(auth);
+                });
         chain.doFilter(req, res);
     }
 }

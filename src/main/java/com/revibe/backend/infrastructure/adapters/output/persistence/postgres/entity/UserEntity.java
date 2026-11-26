@@ -1,7 +1,7 @@
-package com.revibe.backend.infrastructure.adapters.output.persistence.entity;
+package com.revibe.backend.infrastructure.adapters.output.persistence.postgres.entity;
 
 import com.revibe.backend.domain.model.UserStatus;
-import com.revibe.backend.infrastructure.adapters.output.persistence.converter.UserStatusConverter;
+import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.converter.UserStatusConverter;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;

@@ -1,8 +1,9 @@
-package com.revibe.backend.infrastructure.adapters.input.config;
+package com.revibe.backend.infrastructure.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-import com.revibe.backend.infrastructure.adapters.input.service.SessionService;
+import com.revibe.backend.application.ports.output.SessionPort;
+import com.revibe.backend.infrastructure.adapters.input.rest.security.OpaqueTokenAuthFilter;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -35,8 +36,7 @@ public class SecurityConfig {
 
     /**
      * Swagger UI y el JSON de OpenAPI: públicos y con una CSP que permite cargar la UI. Va antes (Order 1) que la
-     * cadena general, que se queda con la CSP estricta de API. Para quitarlos en producción:
-     * SWAGGER_ENABLED=false.
+     * cadena general, que se queda con la CSP estricta de API. Para quitarlos en producción: SWAGGER_ENABLED=false.
      */
     @Bean
     @Order(1)
@@ -69,6 +69,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/api/v1/auth/activate")
                         .permitAll()
+                        .requestMatchers("/api/v1/auth/activation/resend")
+                        .permitAll()
                         .requestMatchers("/api/v1/auth/password-reset/**")
                         .permitAll()
                         .requestMatchers("/activation/**")
@@ -93,7 +95,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public OpaqueTokenAuthFilter opaqueTokenAuthFilter(SessionService sessions) {
+    public OpaqueTokenAuthFilter opaqueTokenAuthFilter(SessionPort sessions) {
         return new OpaqueTokenAuthFilter(sessions);
     }
 

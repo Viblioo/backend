@@ -1,4 +1,4 @@
-package com.revibe.backend.infrastructure.adapters.input.config;
+package com.revibe.backend.infrastructure.config;
 
 import java.time.Clock;
 import org.springframework.context.annotation.Bean;
