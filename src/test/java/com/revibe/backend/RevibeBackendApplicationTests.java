@@ -1,10 +1,9 @@
 package com.revibe.backend;
 
+import com.revibe.backend.support.IntegrationTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class RevibeBackendApplicationTests {
+class RevibeBackendApplicationTests extends IntegrationTest {
 
     @Test
     void contextLoads() {

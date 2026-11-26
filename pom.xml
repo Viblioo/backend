@@ -37,6 +37,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Jackson 3: payloads JSON del outbox. Versión gestionada por Spring Boot -->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
 		<!-- ================================================================== -->
 		<!--                    SPRINGBOOT DEPENDENCIES                         -->
 		<!-- ================================================================== -->
@@ -79,6 +85,22 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- ================================================================== -->
+		<!--                          API DOCS                                  -->
+		<!-- ================================================================== -->
+
+		<!-- OpenAPI 3 + Swagger UI. La rama 3.x es la de Spring Boot 4 -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>3.2.1</version>
 		</dependency>
 
 		<!-- ================================================================== -->
