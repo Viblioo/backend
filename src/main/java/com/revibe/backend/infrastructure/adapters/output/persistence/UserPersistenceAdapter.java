@@ -3,9 +3,12 @@ package com.revibe.backend.infrastructure.adapters.output.persistence;
 import com.revibe.backend.application.ports.output.UserRepositoryPort;
 import com.revibe.backend.domain.exception.UserAlreadyExistsException;
 import com.revibe.backend.domain.model.User;
+import com.revibe.backend.domain.model.UserStatus;
 import com.revibe.backend.infrastructure.adapters.output.persistence.mapper.UserPersistenceMapper;
 import com.revibe.backend.infrastructure.adapters.output.persistence.repository.UserJpaRepository;
+import java.time.Instant;
 import java.util.Locale;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -39,6 +42,11 @@ public class UserPersistenceAdapter implements UserRepositoryPort {
         } catch (DataIntegrityViolationException ex) {
             throw translate(ex);
         }
+    }
+
+    @Override
+    public boolean activate(UUID userId, Instant verifiedAt) {
+        return jpaRepository.updateStatus(userId, UserStatus.PENDING, UserStatus.ACTIVE, verifiedAt) == 1;
     }
 
     //transofrm database exceptions (500) to business logic exceptions (409)

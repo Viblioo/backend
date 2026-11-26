@@ -2,8 +2,8 @@ package com.revibe.backend.application.usecases;
 
 import com.revibe.backend.domain.model.User;
 
-/** Resultado del registro: el usuario creado y el token de su primera sesión. */
-public record RegisterResult(User user, String token) {
+/** Resultado del registro: el usuario creado. */
+public record RegisterResult(User user) {
 
     // Evita que el token acabe en los logs si alguien hace log.info(result)
     @Override

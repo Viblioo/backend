@@ -1,11 +1,13 @@
 package com.revibe.backend.application.service;
 
+import com.revibe.backend.application.ports.output.ActivationCodePort;
 import com.revibe.backend.application.ports.output.PasswordHasherPort;
 import com.revibe.backend.application.ports.output.SessionPort;
 import com.revibe.backend.application.ports.output.UserRepositoryPort;
 import com.revibe.backend.application.usecases.RegisterCommand;
 import com.revibe.backend.application.usecases.RegisterResult;
 import com.revibe.backend.application.usecases.RegisterUseCase;
+import com.revibe.backend.application.usecases.UserRegisteredEvent;
 import com.revibe.backend.domain.exception.InvalidUserDataException;
 import com.revibe.backend.domain.exception.UserAlreadyExistsException;
 import com.revibe.backend.domain.model.User;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.Locale;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,8 @@ public class RegisterService implements RegisterUseCase {
     private final UserRepositoryPort userRepository;
     private final PasswordHasherPort passwordHasher;
     private final SessionPort sessions;
+    private final ActivationCodePort activationCodes;
+    private final ApplicationEventPublisher events;
     private final Clock clock;
 
     @Override
@@ -69,9 +74,12 @@ public class RegisterService implements RegisterUseCase {
 
         var saved = userRepository.save(user);
 
-        var token = sessions.create(saved.getId());
+        // El email sale tras el commit (ActivationEmailListener). Si hay rollback, el código queda huérfano
+        // en Redis y caduca solo.
+        var activationCode = activationCodes.create(saved.getId());
+        events.publishEvent(new UserRegisteredEvent(saved.getEmail(), activationCode));
 
-        return new RegisterResult(saved, token);
+        return new RegisterResult(saved);
     }
 
     private static String normalize(String value) {

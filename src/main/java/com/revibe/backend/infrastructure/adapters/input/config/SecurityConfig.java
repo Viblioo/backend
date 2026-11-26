@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,6 +33,27 @@ public class SecurityConfig {
     @Value("${revibe.security.allowed-origins:}")
     private String allowedOrigins;
 
+    /**
+     * Swagger UI y el JSON de OpenAPI: públicos y con una CSP que permite cargar la UI. Va antes (Order 1) que la
+     * cadena general, que se queda con la CSP estricta de API. Para quitarlos en producción:
+     * SWAGGER_ENABLED=false.
+     */
+    @Bean
+    @Order(1)
+    public SecurityFilterChain docsFilterChain(HttpSecurity http) {
+        http.securityMatcher("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html")
+                .csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
+                .headers(headers -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::deny)
+                        .contentTypeOptions(withDefaults())
+                        .contentSecurityPolicy(
+                                csp -> csp.policyDirectives(SecurityHeaders.SWAGGER_CONTENT_SECURITY_POLICY))
+                        .referrerPolicy(r -> r.policy(ReferrerPolicy.NO_REFERRER)));
+        return http.build();
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, OpaqueTokenAuthFilter tokenFilter) {
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -48,6 +70,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/activate")
                         .permitAll()
                         .requestMatchers("/api/v1/auth/password-reset/**")
+                        .permitAll()
+                        .requestMatchers("/activation/**")
                         .permitAll()
                         .requestMatchers("/actuator/health")
                         .permitAll()

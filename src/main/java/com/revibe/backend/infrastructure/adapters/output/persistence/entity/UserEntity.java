@@ -54,10 +54,13 @@ public class UserEntity {
     @Column(nullable = false, length = 20)
     private UserStatus status;
 
+    @Column(name = "email_verified_at")
+    private Instant emailVerifiedAt;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     // updated_at lo mantiene el trigger trg_users_updated_at.
-    // TODO: is_private y email_verified_at (y avatar_key, bio, deleted_at cuando hagan falta)
+    // TODO: is_private (y avatar_key, bio, deleted_at cuando hagan falta)
 }

@@ -17,6 +17,18 @@ spring:
     authentication:
       username: ${NEO4J_USERNAME}
       password: ${NEO4J_PASSWORD}
+  mail:
+    host: smtp-relay.brevo.com
+    port: 587
+    username: ${BREVO_SMTP_USER}
+    password: ${BREVO_SMTP_KEY}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
   jpa:
     open-in-view: false
     hibernate:
@@ -24,3 +36,28 @@ spring:
   web:
     locale: es
     locale-resolver: fixed
+
+springdoc:
+  api-docs:
+    enabled: ${SWAGGER_ENABLED:true}
+  swagger-ui:
+    enabled: ${SWAGGER_ENABLED:true}
+    path: /swagger-ui.html
+    persist-authorization: true   # no pierde el token al recargar
+    tags-sorter: alpha
+    operations-sorter: method
+    try-it-out-enabled: true
+  default-produces-media-type: application/json
+  paths-to-match: /api/**
+
+revibe:
+  security:
+    allowed-origins: ...
+  mail:
+    from: "Revibe <revibe.somosbuenos@gmail.com>"
+    # URL a la que apunta el botón del email (se le añade ?code=...)
+    activation-url: ${ACTIVATION_URL:http://localhost:8080/api/v1/auth/activate}
+  # Adónde redirige /activate según el resultado (cámbialo al frontend o a un deep link de la app)
+  activation:
+    success-url: ${ACTIVATION_SUCCESS_URL:/activation/success.html}
+    error-url: ${ACTIVATION_ERROR_URL:/activation/error.html}
