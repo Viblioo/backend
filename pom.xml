@@ -37,6 +37,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!-- Jackson 3: payloads JSON del outbox. Versión gestionada por Spring Boot -->
+		<dependency>
+			<groupId>tools.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
 		<!-- ================================================================== -->
 		<!--                    SPRINGBOOT DEPENDENCIES                         -->
 		<!-- ================================================================== -->
