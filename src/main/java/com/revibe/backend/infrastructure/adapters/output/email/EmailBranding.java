@@ -7,8 +7,9 @@ import org.springframework.core.io.Resource;
 /**
  * Marca que pinta EmailLayout: nombre, colores, logo y pie.
  *
- * @param logo PNG incrustado en el correo (CID) para que se vea aunque el cliente bloquee imágenes remotas. Si no
- *             existe, la cabecera muestra el nombre como texto.
+ * @param logo
+ *            PNG incrustado en el correo (CID) para que se vea aunque el cliente bloquee imágenes remotas. Si no
+ *            existe, la cabecera muestra el nombre como texto.
  */
 public record EmailBranding(String name, String primaryColor, String onPrimaryColor, Resource logo, String footer) {
 

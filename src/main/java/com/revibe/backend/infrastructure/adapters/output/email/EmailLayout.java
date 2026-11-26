@@ -5,8 +5,8 @@ import java.util.Map;
 import org.springframework.web.util.HtmlUtils;
 
 /**
- * Marco común de todos los emails: cabecera con la marca, tarjeta blanca de 600px y pie. Los bloques (título,
- * párrafo, botón...) se añaden en orden y cada uno escribe a la vez su versión HTML y su versión en texto plano.
+ * Marco común de todos los emails: cabecera con la marca, tarjeta blanca de 600px y pie. Los bloques (título, párrafo,
+ * botón...) se añaden en orden y cada uno escribe a la vez su versión HTML y su versión en texto plano.
  * <p>
  * HTML a mano con tablas y estilos en línea: es lo único que respetan todos los clientes de correo (Outlook incluido).
  * Todo el texto se escapa aquí, así que los métodos de EmailService pueden pasar datos del usuario sin preocuparse.
@@ -67,6 +67,19 @@ public final class EmailLayout {
         return this;
     }
 
+    /** Código grande y espaciado para teclearlo en la app (recuperar contraseña). */
+    public EmailLayout code(String value) {
+        html.append("""
+                <tr><td align="center" style="padding:8px 0 24px;">
+                  <div style="display:inline-block;padding:16px 28px;background:%1$s;border-radius:8px;\
+                font-family:'Courier New',Courier,monospace;font-size:32px;line-height:40px;font-weight:bold;\
+                letter-spacing:8px;color:%2$s;">%3$s</div>
+                </td></tr>
+                """.formatted(BACKGROUND, HEADING, esc(value)));
+        text.append(value).append("\n\n");
+        return this;
+    }
+
     /** Enlace en texto para cuando el botón no funciona. Solo HTML: en texto plano el botón ya muestra la URL. */
     public EmailLayout fallbackLink(String url) {
         row("padding:0 0 16px;" + FONT + "font-size:13px;line-height:20px;color:" + MUTED + ";",
@@ -123,8 +136,9 @@ public final class EmailLayout {
                 </table>
                 </body>
                 </html>
-                """.formatted(esc(branding.name()), BACKGROUND, esc(preheader), header, html, FONT, MUTED,
-                esc(branding.footer()));
+                """
+                .formatted(esc(branding.name()), BACKGROUND, esc(preheader), header, html, FONT, MUTED,
+                        esc(branding.footer()));
 
         String plain = text + "--\n" + branding.footer() + "\n";
 

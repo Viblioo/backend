@@ -22,8 +22,10 @@ public class EmailService implements EmailSenderPort {
     private final EmailBranding branding = EmailBranding.revibe();
 
     public EmailService(JavaMailSender mailSender,
-            @Value("${revibe.mail.from}") String from,
-            @Value("${revibe.mail.activation-url}") String activationUrl) {
+            @Value("${revibe.mail.from}")
+            String from,
+            @Value("${revibe.mail.activation-url}")
+            String activationUrl) {
         this.mailSender = mailSender;
         this.from = from;
         this.activationUrl = activationUrl;
@@ -39,13 +41,28 @@ public class EmailService implements EmailSenderPort {
         var email = EmailLayout.with(branding)
                 .preheader("Confirma tu email para empezar a usar Revibe")
                 .title("¡Bienvenido a Revibe!")
-                .paragraph("Pulsa el botón para activar tu cuenta. El enlace caduca en 24 horas.")
+                .paragraph("Pulsa el botón para activar tu cuenta. El enlace caduca en 15 minutos; si caduca, "
+                        + "puedes pedir otro desde la app.")
                 .button("Activar cuenta", link)
                 .fallbackLink(link)
                 .note("Si no has creado una cuenta, ignora este correo.")
                 .render();
 
         send(to, "Activa tu cuenta de Revibe", email);
+    }
+
+    @Override
+    public void sendPasswordReset(String to, String code) {
+        var email = EmailLayout.with(branding)
+                .preheader("Tu código para cambiar la contraseña de Revibe")
+                .title("Recupera tu contraseña")
+                .paragraph("Introduce este código en la app para elegir una contraseña nueva. Caduca en 15 minutos.")
+                .code(code)
+                .note("Si no lo has pedido tú, ignora este correo: tu contraseña no cambiará. Nunca te pediremos "
+                        + "este código por teléfono ni por mensaje.")
+                .render();
+
+        send(to, code + " es tu código de Revibe", email);
     }
 
     private void send(String to, String subject, RenderedEmail email) {
