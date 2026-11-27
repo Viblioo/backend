@@ -25,4 +25,6 @@ public interface GraphSyncPort {
      * @return cuántos nodos faltaban y se han creado
      */
     int ensureUsers(List<UUID> userIds);
+
+    int ensureEvents(List<UUID> eventIds);
 }

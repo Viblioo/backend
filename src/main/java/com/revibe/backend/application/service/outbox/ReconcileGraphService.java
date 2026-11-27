@@ -1,6 +1,7 @@
 package com.revibe.backend.application.service.outbox;
 
 import com.revibe.backend.application.ports.input.outbox.ReconcileGraphUseCase;
+import com.revibe.backend.application.ports.output.event.EventRepositoryPort;
 import com.revibe.backend.application.ports.output.outbox.GraphSyncPort;
 import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
 import java.util.List;
@@ -22,6 +23,7 @@ public class ReconcileGraphService implements ReconcileGraphUseCase {
     private static final UUID MIN_UUID = new UUID(0L, 0L);
 
     private final UserRepositoryPort userRepository;
+    private final EventRepositoryPort eventRepository;
     private final GraphSyncPort graph;
 
     @Override
@@ -34,6 +36,24 @@ public class ReconcileGraphService implements ReconcileGraphUseCase {
         do {
             page = userRepository.findActiveIdsAfter(after, PAGE_SIZE);
             created += graph.ensureUsers(page); // con lista vacía no hace nada y devuelve 0
+            if (!page.isEmpty()) {
+                after = page.getLast();
+            }
+        } while (page.size() == PAGE_SIZE);
+
+        return created;
+    }
+
+    @Override
+    public int reconcileEvents() {
+        int created = 0;
+        UUID after = MIN_UUID;
+        List<UUID> page;
+
+        // Una página llena puede tener más detrás; una incompleta (o vacía) es la última
+        do {
+            page = eventRepository.findIdsAfter(after, PAGE_SIZE);
+            created += graph.ensureEvents(page); // con lista vacía no hace nada y devuelve 0
             if (!page.isEmpty()) {
                 after = page.getLast();
             }

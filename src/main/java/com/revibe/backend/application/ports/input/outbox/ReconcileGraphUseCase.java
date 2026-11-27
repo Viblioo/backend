@@ -8,4 +8,6 @@ public interface ReconcileGraphUseCase {
      * @return cuántos nodos faltaban (si no es 0, algo se le ha escapado al outbox)
      */
     int reconcileUsers();
+
+    int reconcileEvents();
 }
