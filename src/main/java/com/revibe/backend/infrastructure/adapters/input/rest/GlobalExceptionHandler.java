@@ -1,12 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.input.rest;
 
-import com.revibe.backend.domain.exception.AccountNotActiveException;
-import com.revibe.backend.domain.exception.InvalidCredentialsException;
-import com.revibe.backend.domain.exception.InvalidPasswordResetCodeException;
-import com.revibe.backend.domain.exception.InvalidUserDataException;
-import com.revibe.backend.domain.exception.TooManyRequestsException;
-import com.revibe.backend.domain.exception.UserAlreadyExistsException;
-import com.revibe.backend.domain.exception.UserNotFoundException;
+import com.revibe.backend.domain.exception.*;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -83,6 +77,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidUserDataException.class)
     public ProblemDetail handleInvalidUserData(InvalidUserDataException ex) {
         ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Datos no válidos");
+        pd.setTitle("Validación fallida");
+        pd.setProperty("errors", Map.of(ex.getField(), ex.getMessage()));
+        return pd;
+    }
+
+    @ExceptionHandler(InvalidEventDataException.class)
+    public ProblemDetail handleInvalidEventData(InvalidEventDataException ex) {
+        ProblemDetail pd = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Datos del evento no válidos");
         pd.setTitle("Validación fallida");
         pd.setProperty("errors", Map.of(ex.getField(), ex.getMessage()));
         return pd;
