@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.redis;
 
-import com.revibe.backend.application.ports.output.PasswordResetCodePort;
+import com.revibe.backend.application.ports.output.security.PasswordResetCodePort;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

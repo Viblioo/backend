@@ -1,7 +1,7 @@
 package com.revibe.backend.infrastructure.adapters.output.persistence.neo4j;
 
-import com.revibe.backend.application.ports.output.GraphSyncPort;
-import com.revibe.backend.application.ports.output.GraphUnavailableException;
+import com.revibe.backend.application.ports.output.outbox.GraphSyncPort;
+import com.revibe.backend.application.ports.output.outbox.GraphUnavailableException;
 import com.revibe.backend.domain.model.OutboxEvent;
 import java.util.List;
 import java.util.UUID;

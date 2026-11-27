@@ -1,7 +1,7 @@
 package com.revibe.backend.application.service;
 
-import static com.revibe.backend.application.ports.output.RateLimit.EMAIL_REQUESTS_PER_ADDRESS;
-import static com.revibe.backend.application.ports.output.RateLimit.EMAIL_REQUESTS_PER_IP;
+import static com.revibe.backend.application.ports.output.security.RateLimit.EMAIL_REQUESTS_PER_ADDRESS;
+import static com.revibe.backend.application.ports.output.security.RateLimit.EMAIL_REQUESTS_PER_IP;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.verify;
@@ -9,9 +9,10 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.revibe.backend.application.event.ActivationEmailRequestedEvent;
-import com.revibe.backend.application.ports.output.ActivationCodePort;
-import com.revibe.backend.application.ports.output.RateLimiterPort;
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.output.auth.ActivationCodePort;
+import com.revibe.backend.application.ports.output.security.RateLimiterPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
+import com.revibe.backend.application.service.auth.ResendActivationService;
 import com.revibe.backend.domain.exception.TooManyRequestsException;
 import com.revibe.backend.domain.model.UserStatus;
 import com.revibe.backend.support.TestUsers;

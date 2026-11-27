@@ -1,14 +1,14 @@
 package com.revibe.backend.infrastructure.adapters.input.rest;
 
-import com.revibe.backend.application.ports.input.ActivateAccountUseCase;
-import com.revibe.backend.application.ports.input.LoginCommand;
-import com.revibe.backend.application.ports.input.LoginUseCase;
-import com.revibe.backend.application.ports.input.LogoutUseCase;
-import com.revibe.backend.application.ports.input.PasswordResetUseCase;
-import com.revibe.backend.application.ports.input.RegisterCommand;
-import com.revibe.backend.application.ports.input.RegisterUseCase;
-import com.revibe.backend.application.ports.input.ResendActivationUseCase;
-import com.revibe.backend.application.ports.input.ResetPasswordCommand;
+import com.revibe.backend.application.ports.input.auth.ActivateAccountUseCase;
+import com.revibe.backend.application.ports.input.auth.LoginCommand;
+import com.revibe.backend.application.ports.input.auth.LoginUseCase;
+import com.revibe.backend.application.ports.input.auth.LogoutUseCase;
+import com.revibe.backend.application.ports.input.auth.PasswordResetUseCase;
+import com.revibe.backend.application.ports.input.auth.RegisterCommand;
+import com.revibe.backend.application.ports.input.auth.RegisterUseCase;
+import com.revibe.backend.application.ports.input.auth.ResendActivationUseCase;
+import com.revibe.backend.application.ports.input.auth.ResetPasswordCommand;
 import com.revibe.backend.domain.exception.InvalidActivationCodeException;
 import com.revibe.backend.infrastructure.adapters.input.rest.dto.EmailRequest;
 import com.revibe.backend.infrastructure.adapters.input.rest.dto.LoginRequest;

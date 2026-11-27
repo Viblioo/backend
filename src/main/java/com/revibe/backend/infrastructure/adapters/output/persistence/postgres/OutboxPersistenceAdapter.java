@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.persistence.postgres;
 
-import com.revibe.backend.application.ports.output.GraphOutboxPort;
+import com.revibe.backend.application.ports.output.outbox.GraphOutboxPort;
 import com.revibe.backend.domain.model.OutboxEvent;
 import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.mapper.OutboxPersistenceMapper;
 import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.repository.OutboxJpaRepository;

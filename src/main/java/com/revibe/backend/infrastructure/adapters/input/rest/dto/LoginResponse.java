@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.input.rest.dto;
 
-import com.revibe.backend.application.ports.input.LoginResult;
+import com.revibe.backend.application.ports.input.auth.LoginResult;
 
 /**
  * @param token

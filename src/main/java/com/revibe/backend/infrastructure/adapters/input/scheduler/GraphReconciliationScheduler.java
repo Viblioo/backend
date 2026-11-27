@@ -1,7 +1,7 @@
 package com.revibe.backend.infrastructure.adapters.input.scheduler;
 
-import com.revibe.backend.application.ports.input.ReconcileGraphUseCase;
-import com.revibe.backend.application.ports.output.GraphUnavailableException;
+import com.revibe.backend.application.ports.input.outbox.ReconcileGraphUseCase;
+import com.revibe.backend.application.ports.output.outbox.GraphUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

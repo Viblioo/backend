@@ -8,9 +8,10 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.revibe.backend.application.ports.output.ActivationCodePort;
-import com.revibe.backend.application.ports.output.GraphOutboxPort;
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.output.auth.ActivationCodePort;
+import com.revibe.backend.application.ports.output.outbox.GraphOutboxPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
+import com.revibe.backend.application.service.auth.ActivateAccountService;
 import com.revibe.backend.domain.exception.InvalidActivationCodeException;
 import com.revibe.backend.domain.model.OutboxEvent;
 import com.revibe.backend.domain.model.OutboxEventType;

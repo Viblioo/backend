@@ -2,7 +2,7 @@ package com.revibe.backend.infrastructure.adapters.output.email;
 
 import com.revibe.backend.application.event.ActivationEmailRequestedEvent;
 import com.revibe.backend.application.event.PasswordResetRequestedEvent;
-import com.revibe.backend.application.ports.output.EmailSenderPort;
+import com.revibe.backend.application.ports.output.auth.EmailSenderPort;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;

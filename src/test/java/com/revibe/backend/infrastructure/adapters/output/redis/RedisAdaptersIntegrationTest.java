@@ -2,7 +2,7 @@ package com.revibe.backend.infrastructure.adapters.output.redis;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.revibe.backend.application.ports.output.RateLimit;
+import com.revibe.backend.application.ports.output.security.RateLimit;
 import com.revibe.backend.support.IntegrationTest;
 import java.time.Duration;
 import java.util.ArrayList;

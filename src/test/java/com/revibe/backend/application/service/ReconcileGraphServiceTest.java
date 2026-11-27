@@ -6,8 +6,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.revibe.backend.application.ports.output.GraphSyncPort;
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.output.outbox.GraphSyncPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
+import com.revibe.backend.application.service.outbox.ReconcileGraphService;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;

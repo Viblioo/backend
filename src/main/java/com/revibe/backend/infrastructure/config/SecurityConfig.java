@@ -2,7 +2,7 @@ package com.revibe.backend.infrastructure.config;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-import com.revibe.backend.application.ports.output.SessionPort;
+import com.revibe.backend.application.ports.output.security.SessionPort;
 import com.revibe.backend.infrastructure.adapters.input.rest.security.OpaqueTokenAuthFilter;
 import java.util.List;
 import java.util.stream.Collectors;
