@@ -1,8 +1,8 @@
 package com.revibe.backend.infrastructure.adapters.input.rest;
 
-import com.revibe.backend.application.ports.input.ChangePasswordCommand;
-import com.revibe.backend.application.ports.input.ChangePasswordUseCase;
-import com.revibe.backend.application.ports.input.GetCurrentUserUseCase;
+import com.revibe.backend.application.ports.input.auth.ChangePasswordCommand;
+import com.revibe.backend.application.ports.input.auth.ChangePasswordUseCase;
+import com.revibe.backend.application.ports.input.user.GetCurrentUserUseCase;
 import com.revibe.backend.infrastructure.adapters.input.rest.dto.ChangePasswordRequest;
 import com.revibe.backend.infrastructure.adapters.input.rest.dto.UserResponse;
 import com.revibe.backend.infrastructure.adapters.input.rest.security.BearerToken;

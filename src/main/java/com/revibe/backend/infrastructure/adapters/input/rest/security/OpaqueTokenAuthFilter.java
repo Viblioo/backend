@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.input.rest.security;
 
-import com.revibe.backend.application.ports.output.SessionPort;
+import com.revibe.backend.application.ports.output.security.SessionPort;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

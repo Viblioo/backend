@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.redis;
 
-import com.revibe.backend.application.ports.output.ActivationCodePort;
+import com.revibe.backend.application.ports.output.auth.ActivationCodePort;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.security;
 
-import com.revibe.backend.application.ports.output.PasswordHasherPort;
+import com.revibe.backend.application.ports.output.security.PasswordHasherPort;
 import com.revibe.backend.domain.model.PasswordPolicy;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

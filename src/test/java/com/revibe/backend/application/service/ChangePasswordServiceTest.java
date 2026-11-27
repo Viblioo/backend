@@ -1,6 +1,6 @@
 package com.revibe.backend.application.service;
 
-import static com.revibe.backend.application.ports.output.RateLimit.CHANGE_PASSWORD_FAILURES_PER_USER;
+import static com.revibe.backend.application.ports.output.security.RateLimit.CHANGE_PASSWORD_FAILURES_PER_USER;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
@@ -8,11 +8,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-import com.revibe.backend.application.ports.input.ChangePasswordCommand;
-import com.revibe.backend.application.ports.output.PasswordHasherPort;
-import com.revibe.backend.application.ports.output.RateLimiterPort;
-import com.revibe.backend.application.ports.output.SessionPort;
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.input.auth.ChangePasswordCommand;
+import com.revibe.backend.application.ports.output.security.PasswordHasherPort;
+import com.revibe.backend.application.ports.output.security.RateLimiterPort;
+import com.revibe.backend.application.ports.output.security.SessionPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
+import com.revibe.backend.application.service.auth.ChangePasswordService;
 import com.revibe.backend.domain.exception.InvalidUserDataException;
 import com.revibe.backend.domain.exception.TooManyRequestsException;
 import com.revibe.backend.domain.model.User;

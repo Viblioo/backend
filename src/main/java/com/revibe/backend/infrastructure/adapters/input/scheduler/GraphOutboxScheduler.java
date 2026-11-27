@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.input.scheduler;
 
-import com.revibe.backend.application.ports.input.ProcessGraphOutboxUseCase;
+import com.revibe.backend.application.ports.input.outbox.ProcessGraphOutboxUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

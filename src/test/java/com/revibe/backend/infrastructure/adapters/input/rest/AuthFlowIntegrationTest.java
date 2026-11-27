@@ -13,11 +13,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.revibe.backend.application.ports.output.PasswordHasherPort;
-import com.revibe.backend.application.ports.output.RateLimit;
-import com.revibe.backend.application.ports.output.RateLimiterPort;
-import com.revibe.backend.application.ports.output.SessionPort;
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.output.security.PasswordHasherPort;
+import com.revibe.backend.application.ports.output.security.RateLimit;
+import com.revibe.backend.application.ports.output.security.RateLimiterPort;
+import com.revibe.backend.application.ports.output.security.SessionPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
 import com.revibe.backend.domain.model.User;
 import com.revibe.backend.domain.model.UserStatus;
 import com.revibe.backend.infrastructure.adapters.output.persistence.postgres.repository.UserJpaRepository;

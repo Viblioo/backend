@@ -1,8 +1,8 @@
 package com.revibe.backend.application.service;
 
-import static com.revibe.backend.application.ports.output.RateLimit.EMAIL_REQUESTS_PER_ADDRESS;
-import static com.revibe.backend.application.ports.output.RateLimit.EMAIL_REQUESTS_PER_IP;
-import static com.revibe.backend.application.ports.output.RateLimit.LOGIN_FAILURES_PER_ACCOUNT;
+import static com.revibe.backend.application.ports.output.security.RateLimit.EMAIL_REQUESTS_PER_ADDRESS;
+import static com.revibe.backend.application.ports.output.security.RateLimit.EMAIL_REQUESTS_PER_IP;
+import static com.revibe.backend.application.ports.output.security.RateLimit.LOGIN_FAILURES_PER_ACCOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,12 +12,13 @@ import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import com.revibe.backend.application.event.PasswordResetRequestedEvent;
-import com.revibe.backend.application.ports.input.ResetPasswordCommand;
-import com.revibe.backend.application.ports.output.PasswordHasherPort;
-import com.revibe.backend.application.ports.output.PasswordResetCodePort;
-import com.revibe.backend.application.ports.output.RateLimiterPort;
-import com.revibe.backend.application.ports.output.SessionPort;
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.input.auth.ResetPasswordCommand;
+import com.revibe.backend.application.ports.output.security.PasswordHasherPort;
+import com.revibe.backend.application.ports.output.security.PasswordResetCodePort;
+import com.revibe.backend.application.ports.output.security.RateLimiterPort;
+import com.revibe.backend.application.ports.output.security.SessionPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
+import com.revibe.backend.application.service.auth.PasswordResetService;
 import com.revibe.backend.domain.exception.InvalidPasswordResetCodeException;
 import com.revibe.backend.domain.exception.InvalidUserDataException;
 import com.revibe.backend.domain.exception.TooManyRequestsException;

@@ -6,9 +6,10 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.revibe.backend.application.ports.output.GraphOutboxPort;
-import com.revibe.backend.application.ports.output.GraphSyncPort;
-import com.revibe.backend.application.ports.output.GraphUnavailableException;
+import com.revibe.backend.application.ports.output.outbox.GraphOutboxPort;
+import com.revibe.backend.application.ports.output.outbox.GraphSyncPort;
+import com.revibe.backend.application.ports.output.outbox.GraphUnavailableException;
+import com.revibe.backend.application.service.outbox.ProcessGraphOutboxService;
 import com.revibe.backend.domain.model.OutboxEvent;
 import com.revibe.backend.domain.model.OutboxEventType;
 import java.time.Clock;

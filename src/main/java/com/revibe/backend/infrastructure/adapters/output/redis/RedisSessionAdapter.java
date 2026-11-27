@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.redis;
 
-import com.revibe.backend.application.ports.output.SessionPort;
+import com.revibe.backend.application.ports.output.security.SessionPort;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

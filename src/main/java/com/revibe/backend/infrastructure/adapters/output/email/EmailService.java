@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.email;
 
-import com.revibe.backend.application.ports.output.EmailSenderPort;
+import com.revibe.backend.application.ports.output.auth.EmailSenderPort;
 import jakarta.mail.MessagingException;
 import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Value;

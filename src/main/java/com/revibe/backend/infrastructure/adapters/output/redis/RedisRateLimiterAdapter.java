@@ -1,7 +1,7 @@
 package com.revibe.backend.infrastructure.adapters.output.redis;
 
-import com.revibe.backend.application.ports.output.RateLimit;
-import com.revibe.backend.application.ports.output.RateLimiterPort;
+import com.revibe.backend.application.ports.output.security.RateLimit;
+import com.revibe.backend.application.ports.output.security.RateLimiterPort;
 import java.time.Duration;
 import java.util.List;
 import java.util.Locale;

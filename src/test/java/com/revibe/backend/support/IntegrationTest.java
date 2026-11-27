@@ -1,6 +1,6 @@
 package com.revibe.backend.support;
 
-import com.revibe.backend.application.ports.output.EmailSenderPort;
+import com.revibe.backend.application.ports.output.auth.EmailSenderPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 

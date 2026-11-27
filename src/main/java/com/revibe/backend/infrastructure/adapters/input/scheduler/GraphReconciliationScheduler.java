@@ -1,7 +1,7 @@
 package com.revibe.backend.infrastructure.adapters.input.scheduler;
 
-import com.revibe.backend.application.ports.input.ReconcileGraphUseCase;
-import com.revibe.backend.application.ports.output.GraphUnavailableException;
+import com.revibe.backend.application.ports.input.outbox.ReconcileGraphUseCase;
+import com.revibe.backend.application.ports.output.outbox.GraphUnavailableException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,10 +21,16 @@ public class GraphReconciliationScheduler {
     @Scheduled(cron = "${revibe.graph-reconciliation.cron:0 0 4 * * *}")
     public void run() {
         try {
-            int created = reconcileGraph.reconcileUsers();
-            if (created > 0) {
+            int userCreated = reconcileGraph.reconcileUsers();
+            if (userCreated > 0) {
                 // No debería pasar: si pasa, el outbox está perdiendo eventos y hay que mirar por qué
-                log.warn("Reconciliación del grafo: se han creado {} nodos User que faltaban", created);
+                log.warn("Reconciliación del grafo: se han creado {} nodos User que faltaban", userCreated);
+            } else {
+                log.info("Reconciliación del grafo: todo cuadra");
+            }
+            int eventCreated = reconcileGraph.reconcileEvents();
+            if (eventCreated > 0) {
+                log.warn("Reconciliación del grafo: se han creado {} nodos Event que faltaban", eventCreated);
             } else {
                 log.info("Reconciliación del grafo: todo cuadra");
             }

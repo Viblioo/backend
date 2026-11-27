@@ -1,6 +1,6 @@
 package com.revibe.backend.infrastructure.adapters.output.persistence.postgres;
 
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
 import com.revibe.backend.domain.exception.UserAlreadyExistsException;
 import com.revibe.backend.domain.model.User;
 import com.revibe.backend.domain.model.UserStatus;

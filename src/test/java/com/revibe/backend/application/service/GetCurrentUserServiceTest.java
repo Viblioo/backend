@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
-import com.revibe.backend.application.ports.output.UserRepositoryPort;
+import com.revibe.backend.application.ports.output.user.UserRepositoryPort;
+import com.revibe.backend.application.service.user.GetCurrentUserService;
 import com.revibe.backend.domain.exception.UserNotFoundException;
 import com.revibe.backend.domain.model.UserStatus;
 import com.revibe.backend.support.TestUsers;
